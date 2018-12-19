@@ -150,12 +150,15 @@ extern "C"
     AVal playpath;	/* passed in explicitly */
     AVal tcUrl;
     AVal swfUrl;
+    AVal swfHash;
     AVal pageUrl;
     AVal app;
     AVal auth;
     AVal flashVer;
     AVal subscribepath;
+    AVal ccomm;
     AVal usherToken;
+    AVal WeebToken;
     AVal token;
     AVal pubUser;
     AVal pubPasswd;
@@ -175,9 +178,18 @@ extern "C"
     int lFlags;
 
     int swfAge;
+    int swfSize;
 
     int protocol;
+    int ConnectPacket;
+    int CombineConnectPacket;
+    int redirected;
     int timeout;		/* connection timeout in seconds */
+    int dynamicPublish;
+    AVal dynamicCommand;
+    AVal Extras;
+    AVal HandshakeResponse;
+    double publishId;
 
     int pFlags;			/* unused, but kept to avoid breaking ABI */
 
@@ -220,6 +232,7 @@ extern "C"
     /* if bResume == TRUE */
     uint8_t initialFrameType;
     uint32_t nResumeTS;
+    uint32_t nResumeDriftTS;
     char *metaHeader;
     char *initialFrame;
     uint32_t nMetaHeaderSize;
@@ -306,6 +319,8 @@ extern "C"
 			AVal *flashVer,
 			AVal *subscribepath,
 			AVal *usherToken,
+			AVal *WeebToken,
+			AVal *ccomm,
 			int dStart,
 			int dStop, int bLiveStream, long int timeout);
 
@@ -370,6 +385,11 @@ extern "C"
 /* hashswf.c */
   int RTMP_HashSWF(const char *url, unsigned int *size, unsigned char *hash,
 		   int age);
+
+  AVal AVcopy(AVal src);
+  AVal StripParams(AVal *src);
+  char *strreplace(char *srcstr, int srclen, char *orig, char *repl, int didAlloc);
+  int strsplit(char *src, int srclen, char delim, char ***params);
 
 #ifdef __cplusplus
 };

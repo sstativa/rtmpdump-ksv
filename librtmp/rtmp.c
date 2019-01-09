@@ -3806,7 +3806,7 @@ HandleInvoke(RTMP *r, const char *body, unsigned int nBodySize)
 
     if (strlen(pageUrl) > 7)
     {
-      strsplit(pageUrl + 8, FALSE, '/', &params);
+      strsplit(pageUrl + 7, FALSE, '/', &params);
       av_ModelName.av_val = params[1];
       av_ModelName.av_len = strlen(params[1]);
 
